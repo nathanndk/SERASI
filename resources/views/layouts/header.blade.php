@@ -26,6 +26,7 @@
 
 
 <body>
+    <body style="background-color: #f0f0f0;">
     <nav class="navbar navbar-expand-lg bg-dark border-bottom border-bottom-dark ticky-top bg-body-tertiary"
         data-bs-theme="dark">
         <div class="container">
@@ -38,7 +39,7 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
                     @auth
