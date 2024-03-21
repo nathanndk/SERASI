@@ -28,7 +28,7 @@
         </div>
         @endif
     </div>
-    
+
     @endforeach
 
     <!-- Pagination Links -->
@@ -36,4 +36,19 @@
         {{ $notifications->links() }}
     </div>
 </div>
+@vite('resources/js/app.js')
+    <script type="module">
+        console.log(Window.Echo);
+        let user_id = {{ Auth::user()->id }};
+        console.log("Mendengarkan pesan baru untuk user:", user_id);
+        Window.Echo.channel(`notification.${user_id}`).listen(
+            ".notification-event",
+            (event) => {
+                console.log("Mendengarkan pesan baru:", event);
+                // Lakukan tindakan yang sesuai dengan pesan yang diterima
+                // reload page
+                location.reload();
+            }
+        );
+    </script>
 @endsection

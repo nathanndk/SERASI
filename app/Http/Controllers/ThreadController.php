@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Events\NotificationEvent;
+use Illuminate\Support\Facades\Event;
 
 
 class ThreadController extends Controller
@@ -112,6 +114,8 @@ class ThreadController extends Controller
             $notification->user_id = $adminUser->id;
 
             $notification->save();
+
+            Event::dispatch(new NotificationEvent($notification));
         }
 
         $approvalMessage = $isAdmin ? 'Thread created successfully!' : 'Thread created successfully, wait for admin approval!';
@@ -164,6 +168,28 @@ class ThreadController extends Controller
 
         $thread->updated_at = now();
         $thread->save();
+
+        $isAdmin = auth()->user()->role == 3;
+
+        if (!$isAdmin) {
+            // Mendapatkan pengguna dengan peran (role) 3
+            $adminUser = User::where('role', 3)->first();
+
+            // Buat notifikasi
+            $notification = new Notification;
+            $notification->ref_id = $thread->id; // ID thread yang baru saja dibuat
+            $notification->modules = 'threads';
+            $notification->keterangan = auth()->user()->name . ' request to make a thread: "' . $thread->title . '"';
+            $notification->isRead = 0;
+            $notification->created_at = now();
+            $notification->created_by = Auth::id();
+            $notification->updated_at = now();
+            $notification->user_id = $adminUser->id;
+
+            $notification->save();
+
+            Event::dispatch(new NotificationEvent($notification));
+        }
 
         if ($thread->status == 'approved' && $userRole == 3) {
             return redirect()->route('forum', ["forum_type_id" => $thread->forum_type_id])->with('success', 'Thread updated!');

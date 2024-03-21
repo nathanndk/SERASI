@@ -1,7 +1,6 @@
 @php
     $forum_type_id = request()->get('forum_type_id');
 @endphp
-
 @extends('layouts.header')
 
 @section('content')
@@ -13,34 +12,35 @@
         <form action="{{ route('threads.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
-                <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                <input type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="title" name="title" required>
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
                 @error('title')
-                <span class="text-sm text-red-500">{{ $message }}</span>
+                <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
             <div class="mb-4">
-                <label for="content" class="block text-sm font-medium text-gray-700">Description</label>
-                <textarea class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="content" name="content" rows="3" style="overflow-wrap: break-word;" required></textarea>
+                <label for="content" class="form-label">Description</label>
+                <textarea class="form-control" id="content" name="content" rows="3" style="overflow-wrap: break-word;" required></textarea>
                 @error('content')
-                <span class="text-sm text-red-500">{{ $message }}</span>
+                <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
             <div class="mb-4">
-                <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
-                <input type="file" accept="image/*" class="mt-1 block w-full py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="photo" name="photo">
-                <p class="text-xs text-gray-500">Accepted formats: JPG, JPEG, PNG, GIF. Maximum size: 5MB.</p>
+                <label for="image" class="form-label">Image</label>
+                <input type="file" accept="image/*" class="form-control" id="photo" name="photo">
+                <p class="form-text text-muted">Accepted formats: JPG, JPEG, PNG, GIF. Maximum size: 5MB.</p>
                 @error('image')
-                <span class="text-sm text-red-500">{{ $message }}</span>
+                <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
 
             <div class="mb-4">
                 <input type="hidden" class="form-control" id="forum_type_id" name="forum_type_id" value="{{ $forum_type_id }}">
             </div>
+
             <div class="mb-4">
-                <label for="category_id" class="block text-sm font-medium text-gray-700">Thread Category</label>
-                <select name="thread_category_id" id="category_id" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" style="border: 1px solid;">
+                <label for="category_id" class="form-label">Thread Category</label>
+                <select name="thread_category_id" id="category_id" class="form-select" style="border: 1px solid;">
                     <option value="">Select Category</option>
                     @foreach ($threadCategories as $category)
                     <option value="{{ $category->id }}">{{ $category->category }}</option>
@@ -48,11 +48,11 @@
                     <option value="custom">Custom</option>
                 </select>
                 <div id="custom_category_form" style="display: none;">
-                    <label for="custom_thread_category" class="block text-sm font-medium text-gray-700">Custom Category</label>
-                    <input type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="custom_thread_category" name="custom_thread_category">
+                    <label for="custom_thread_category" class="form-label">Custom Category</label>
+                    <input type="text" class="form-control" id="custom_thread_category" name="custom_thread_category">
                 </div>
                 @error('thread_category_id')
-                <span class="text-sm text-red-500">{{ $message }}</span>
+                <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -69,7 +69,7 @@
                 });
             </script>
             <div class="mb-4">
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-2 rounded-md">Create Thread</button>
+                <button type="submit" class="btn btn-primary">Create Thread</button>
             </div>
         </form>
     </div>
@@ -86,4 +86,3 @@
         }
     });
 </script>
-

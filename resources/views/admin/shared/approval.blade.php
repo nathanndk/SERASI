@@ -8,7 +8,7 @@
                 <h5 class="text-lg font-semibold mt-0"><a href="{{ route('users.show', $thread->user->id) }}" class="text-gray-600 hover:underline text-decoration-none">{{ $thread->user->name }}</a></h5>
                 <p class="text-gray-500 text-sm">
                     <i class="fas fa-clock me-1"></i>{{  $thread->created_at->diffForHumans() }}
-                </p>                
+                </p>
             </div>
         </div>
 
@@ -31,7 +31,7 @@
                                 @method('delete')
                                 <button class="dropdown-item text-red-500" type="submit"><i class="fas fa-times me-2"></i>Delete</button>
                             </form>
-                        </li>                            
+                        </li>
                     @endif
                 @endauth
             </ul>
@@ -92,3 +92,18 @@
         @endif
     </div>
 </div>
+@vite('resources/js/app.js')
+    <script type="module">
+        console.log(Window.Echo);
+        let user_id = {{ Auth::user()->id }};
+        console.log("Mendengarkan pesan baru untuk user:", user_id);
+        Window.Echo.channel(`notification.${user_id}`).listen(
+            ".notification-event",
+            (event) => {
+                console.log("Mendengarkan pesan baru:", event);
+                // Lakukan tindakan yang sesuai dengan pesan yang diterima
+                // reload page
+                location.reload();
+            }
+        );
+    </script>
