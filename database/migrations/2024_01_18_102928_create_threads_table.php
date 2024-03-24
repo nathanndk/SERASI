@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('threads', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 30);
-            $table->text('content');
+            $table->string('title', 150);
+            $table->text('content')->nullable();
             $table->string('photo', 255)->nullable();
             $table->enum('status', ['approved', 'pending', 'rejected'])->default('pending');
             $table->dateTime('created_at');
@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->string('updated_by', 100)->nullable();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('forum_type_id')->constrained('forum_types');
-            $table->foreignId('thread_category_id')->constrained('thread_categories');
+            $table->foreignId('thread_category_id')->constrained('thread_categories')->cascadeOnDelete();
         });
     }
 

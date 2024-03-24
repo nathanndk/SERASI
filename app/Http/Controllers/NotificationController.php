@@ -70,4 +70,11 @@ class NotificationController extends Controller
         return view('notifications.index', compact('notifications'));
     }
 
+    public function show(Notification $notification)
+    {
+        // Mengembalikan tampilan dengan satu notifikasi yang ingin ditampilkan
+        return view('notifications.show', compact('notification'));
+    }
 }
+
+

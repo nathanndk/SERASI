@@ -6,7 +6,9 @@
     <hr class="mb-4">
 
     @foreach($notifications as $notification)
-    <div class="mt-2 px-6 py-4 bg-white rounded-lg shadow-lg w-full mb-3{{ $notification->isRead ? '' : ' bg-secondary' }} bg-opacity-50">
+    <!-- Add JavaScript onClick event handler to make the entire box clickable -->
+    <div class="mt-2 px-6 py-4 bg-white rounded-lg shadow-lg w-full mb-3{{ $notification->isRead ? '' : ' bg-secondary' }} bg-opacity-50 cursor-pointer"
+         onclick="window.location='{{ route('notifications.update', $notification) }}'; event.preventDefault(); document.getElementById('mark-as-read-form-{{ $notification->id }}').submit();">
         <div class="flex items-center justify-between">
             <div class="flex items-center">
             </div>
@@ -18,17 +20,15 @@
             <img class="w-12 h-12 rounded-full" src="{{ $notification->user->getImageURL() }}" alt="{{ $notification->user->name }}">
             <p class="ml-4 text-base">{{ $notification->keterangan }}</p>
         </div>
-        @if (!$notification->isRead)
         <div class="d-flex justify-content-end mt-2">
-            <form action="{{ route('notifications.update', $notification) }}" method="POST">
+            <form id="mark-as-read-form-{{ $notification->id }}"
+                  action="{{ route('notifications.update', $notification) }}"
+                  method="POST" style="display: none;">
                 @csrf
                 @method('PUT')
-                <button type="submit" class="btn btn-primary btn-sm"> Go to the page </button>
             </form>
         </div>
-        @endif
     </div>
-
     @endforeach
 
     <!-- Pagination Links -->
@@ -37,18 +37,18 @@
     </div>
 </div>
 @vite('resources/js/app.js')
-    <script type="module">
-        console.log(Window.Echo);
-        let user_id = {{ Auth::user()->id }};
-        console.log("Mendengarkan pesan baru untuk user:", user_id);
-        Window.Echo.channel(`notification.${user_id}`).listen(
-            ".notification-event",
-            (event) => {
-                console.log("Mendengarkan pesan baru:", event);
-                // Lakukan tindakan yang sesuai dengan pesan yang diterima
-                // reload page
-                location.reload();
-            }
-        );
-    </script>
+<script type="module">
+    console.log(Window.Echo);
+    let user_id = {{ Auth::user()->id }};
+    console.log("Mendengarkan pesan baru untuk user:", user_id);
+    Window.Echo.channel(`notification.${user_id}`).listen(
+        ".notification-event",
+        (event) => {
+            console.log("Mendengarkan pesan baru:", event);
+            // Lakukan tindakan yang sesuai dengan pesan yang diterima
+            // reload page
+            location.reload();
+        }
+    );
+</script>
 @endsection

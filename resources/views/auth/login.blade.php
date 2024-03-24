@@ -1,8 +1,8 @@
 @extends('layouts.header')
 
 @section('content')
-    <div class="container mx-auto p-6 bg-white rounded-lg shadow-2xl font-poppins" style="max-width: 29cm; padding-left: 2rem; padding-right: 2rem;">
-        <div class="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
+    <div class="container mx-auto p-6 bg-white rounded-lg shadow-2xl mt-5 font-poppins" style="max-width: 29cm; padding-left: 2rem; padding-right: 2rem;">
+        <div class="relative flex flex-col m-6 space-y-8 bg-white rounded-2xl md:flex-row md:space-y-0">
             <!-- Left side -->
             <div class="flex flex-col justify-center p-4 md:p-6 md:w-2/3">
                 <span class="mb-2 text-2xl font-bold">Sign In</span>
@@ -37,7 +37,7 @@
                 <!-- Text on image -->
                 <div class="absolute bottom-0 right-0 left-0 p-4 bg-black bg-opacity-50 rounded-lg md:block">
                     <span class="text-white text-sm">We Make You Fly and Connect. SERASI©</span>
-                </div>                
+                </div>
             </div>
         </div>
     </div>

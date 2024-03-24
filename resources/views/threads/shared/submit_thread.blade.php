@@ -20,7 +20,7 @@
             </div>
             <div class="mb-4">
                 <label for="content" class="form-label">Description</label>
-                <textarea class="form-control" id="content" name="content" rows="3" style="overflow-wrap: break-word;" required></textarea>
+                <textarea class="form-control" id="content" name="content" rows="3" style="overflow-wrap: break-word;"></textarea>
                 @error('content')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -28,7 +28,7 @@
             <div class="mb-4">
                 <label for="image" class="form-label">Image</label>
                 <input type="file" accept="image/*" class="form-control" id="photo" name="photo">
-                <p class="form-text text-muted">Accepted formats: JPG, JPEG, PNG, GIF. Maximum size: 5MB.</p>
+                <p class="form-text text-muted">Accepted formats: JPG, JPEG, PNG, GIF. Maximum size: 3MB.</p>
                 @error('image')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror

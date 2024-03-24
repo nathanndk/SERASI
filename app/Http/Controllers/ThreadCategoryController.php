@@ -17,6 +17,7 @@ class ThreadCategoryController extends Controller
         $threadCategories = ThreadCategory::all();
 
         return view('cluster.index', compact('threadCategories'));
+
     }
 
     // public function getCategoriesEdit()
@@ -110,17 +111,30 @@ class ThreadCategoryController extends Controller
     public function search(Request $request)
     {
         $selectedCategories = $request->input('categories', []);
+        $forumTypeId = $request->input('forum_type_id'); // Get the forum_type_id from the request
 
-        $threads = Thread::whereHas('threadCategories', function ($query) use ($selectedCategories) {
-            $query->whereIn('id', $selectedCategories);
-        })
-            ->where('status', 'approved')
-            ->orderBy('created_at', 'DESC')
-            ->get();
+        $threadsQuery = Thread::query();
 
-        return view('forum.shared.search_kategori', compact('threads'));
+        // Check for selected categories
+        if (!empty($selectedCategories)) {
+            $threadsQuery->whereHas('threadCategories', function ($query) use ($selectedCategories) {
+                $query->whereIn('id', $selectedCategories);
+            });
+        }
+
+        // Filter by forum_type_id if provided
+        if (!empty($forumTypeId)) {
+            $threadsQuery->where('forum_type_id', $forumTypeId);
+        }
+
+        $threads = $threadsQuery->where('status', 'approved')
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
+
+        $threadCategories = ThreadCategory::pluck('category', 'id'); // Fetch thread categories with IDs
+
+        return view('forum.shared.search_kategori', compact('threads', 'threadCategories'));
     }
-
 
     public function CategorySorting()
     {

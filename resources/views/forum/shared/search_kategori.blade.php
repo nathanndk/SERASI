@@ -1,14 +1,3 @@
-@php
-    $forum_type_id = request()->get('forum_type_id');
-@endphp
-
-@media (max-width: 767px) {
-    .hidden-sidebar {
-        display: none;
-    }
-}
-
-
 @extends('layouts.header')
 
 @section('content')
@@ -21,7 +10,7 @@
                     <h1 class="text-2xl font-semibold mb-4">Search Results</h1>
 
                     @foreach($threads as $thread)
-                        <div class="bg-white rounded-lg shadow-md p-4">
+                        <div class=" p-4 mb-1">
                             @include('threads.shared.thread_card', ['thread' => $thread])
                         </div>
                     @endforeach
@@ -39,5 +28,3 @@
         </div>
     </div>
 @endsection
-
-

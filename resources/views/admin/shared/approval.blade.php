@@ -39,6 +39,11 @@
     </div>
 
     <hr class="my-4">
+    @if($thread->photo)
+    <div class="flex-shrink-0">
+        <img src="{{ asset('storage/'.$thread->photo) }}" alt="Thread Image" class="w-full h-96 object-cover rounded-lg mb-4">
+    </div>
+     @endif
 
     <div>
         @if ($editing ?? false)

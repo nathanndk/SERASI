@@ -37,9 +37,12 @@ class ThreadController extends Controller
 
         // Ambil hasil query dengan pagination
         $threads = $threads->paginate(5);
+        $threadCategories = ThreadCategory::pluck('category', 'id'); // Mengambil hanya kolom 'name' dan 'id' dari model ThreadCategory
+
 
         return view('forum.index', [
             'threads' => $threads,
+            'threadCategories' => $threadCategories,
         ]);
     }
 
@@ -65,8 +68,7 @@ class ThreadController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'title' => 'required|min:5|max:30',
-            'content' => 'required|min:5|max:254',
+            'title' => 'required|min:3|max:150',
             // 'thread_category_id' => 'required',
             'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);

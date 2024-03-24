@@ -19,14 +19,14 @@ class ThreadCategoriesTableSeeder extends Seeder
         DB::statement('ALTER TABLE thread_categories AUTO_INCREMENT = 1');
 
         DB::table('thread_categories')->insert([
-            ['category' => 'Book'],
             ['category' => 'Life'],
             ['category' => 'Sports'],
             ['category' => 'Food'],
-            ['category' => 'Music'],
-            ['category' => 'Movie'],
-            ['category' => 'Game'],
             ['category' => 'Programming'],
+            ['category' => 'Flight Information'],
+            ['category' => 'Airport Facilities'],
+            ['category' => 'Security'],
+            ['category' => 'Airlines'],
             ['category' => 'Others'],
         ]);
     }

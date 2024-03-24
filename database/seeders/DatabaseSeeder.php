@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             ForumTypesTableSeeder::class,
             ThreadCategoriesTableSeeder::class,
             RolesTablesSeeder::class,
+            ThreadsTablesSeeder::class,
             // EventsTableSeeder::class,
             // NotificationsTableSeeder::class,
         ]);

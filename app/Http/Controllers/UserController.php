@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\ThreadCategory;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -16,7 +17,9 @@ class UserController extends Controller
         // Mendapatkan thread yang memiliki status "approved"
         $threads = $user->threads()->where('status', 'approved')->paginate(5);
 
-        return view('users.show', compact('user', 'threads'));
+        $threadCategories = ThreadCategory::pluck('category', 'id');
+
+        return view('users.show', compact('user', 'threads', 'threadCategories'));
     }
 
     public function edit(User $user)
@@ -24,9 +27,9 @@ class UserController extends Controller
         // Mendapatkan thread yang memiliki status "approved"
         $threads = $user->threads()->where('status', 'approved')->paginate(5);
 
-        $editing = true;
+        $threadCategories = ThreadCategory::pluck('category', 'id');
 
-        return view('users.edit', compact('user', 'editing', 'threads'));
+        return view('users.edit', compact('user', 'threads', 'threadCategories'));
     }
 
     /**
