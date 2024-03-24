@@ -22,7 +22,7 @@
             @endguest
 
             @forelse ($threads as $thread)
-            <div class="mt-3">
+            <div class="mt-2">
                 @include('threads.shared.thread_card')
             </div>
             @empty

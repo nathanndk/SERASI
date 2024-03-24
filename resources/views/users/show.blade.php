@@ -24,7 +24,7 @@
         </div>
         <div class="col-lg-3">
             @include('shared.search_bar')
-            @include('forum.shared.category')
+            {{-- @include('forum.shared.category') --}}
         </div>
     </div>
 </div>

@@ -14,15 +14,15 @@
         </div>
 
         <div class="dropdown">
+            @auth
+            @if(auth()->user()->is($thread->user) || auth()->user()->role == 3)
             <button type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" onclick="handleDropdownClick(event)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                     <path d="M10 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM10 8.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM11.5 15.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
                 </svg>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-                @auth
-                    @if(auth()->user()->is($thread->user) || auth()->user()->role == 3)
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item" href="{{ route('threads.edit', $thread->id) }}"><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
                         <li>
                             <form method="POST" action="{{ route('threads.destroy', $thread->id) }}">

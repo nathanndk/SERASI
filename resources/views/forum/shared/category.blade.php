@@ -7,7 +7,7 @@
                 <!-- Include forum_type_id as a hidden input -->
                 <input type="hidden" name="forum_type_id" value="{{ request()->get('forum_type_id') }}">
 
-                <div class="grid grid-cols-1 gap-4">
+                <div class="grid grid-cols-1 gap-3">
                     @foreach($threadCategories as $id => $name)
                     <div class="flex items-center">
                         <input id="category-{{ $id }}" name="categories[]" value="{{ $id }}" type="checkbox" class="form-checkbox text-blue-600 h-4 w-4">
