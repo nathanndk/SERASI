@@ -27,7 +27,7 @@
                             <form method="POST" action="{{ route('threads.destroy', $thread->id) }}">
                                 @csrf
                                 @method('delete')
-                                <button class="dropdown-item text-red-500" type="submit"><i class="fas fa-times me-2"></i>Delete</button>
+                                <button class="dropdown-item text-red-500" type="submit" onclick="return confirm('Are you sure you want to delete this thread?')"><i class="fas fa-times me-2"></i>Delete</button>
                             </form>
                         </li>
                     @endif

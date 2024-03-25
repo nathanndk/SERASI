@@ -1,6 +1,6 @@
 <!-- Main Content -->
 <div class="w-full lg:w-3/4 px-4">
-    <div class="card shadow-lg">
+
 
     <div class="row">
         <div class="col">
@@ -11,7 +11,7 @@
                     <form action="{{ route('categories.store') }}" method="post">
                         @csrf
                         <div class="flex flex-col mb-4">
-                            <textarea id="category" name="category" rows="3" class="form-textarea mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Enter Category"></textarea>
+                            <textarea id="category" name="category" rows="3" class="form-textarea mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Enter New Category..."></textarea>
                             @error('category')
                             <span class="text-sm text-red-500 mt-2">{{ $message }}</span>
                             @enderror

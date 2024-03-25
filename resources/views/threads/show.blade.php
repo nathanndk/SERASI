@@ -15,7 +15,7 @@
                 @include('threads.shared.comment_box')
         </div>
         <div class="col-lg-3"> <!-- Sidebar kanan -->
-            @include('shared.search_bar')
+            {{-- @include('shared.search_bar') --}}
             {{-- @include('forum.shared.category') --}}
         </div>
     </div>
