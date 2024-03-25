@@ -26,7 +26,7 @@ class ThreadsTablesSeeder extends Seeder
                 'updated_by' => 1,
                 'thread_category_id' => 1,
                 'status' => 'approved',
-                'user_id' => 1,
+                'user_id' => 2,
                 'forum_type_id' => 2,
             ],
             [
@@ -52,7 +52,7 @@ class ThreadsTablesSeeder extends Seeder
                 'created_by' => 1,
                 'thread_category_id' => 1,
                 'status' => 'approved',
-                'user_id' => 1,
+                'user_id' => 3,
                 'forum_type_id' => 2,
             ],
             // Sports
@@ -67,7 +67,7 @@ class ThreadsTablesSeeder extends Seeder
                 'updated_by' => 1,
                 'thread_category_id' => 2, // Asumsi id untuk kategori Sports
                 'status' => 'approved',
-                'user_id' => 1,
+                'user_id' => 2,
                 'forum_type_id' => 2,
             ],
             [
@@ -94,7 +94,7 @@ class ThreadsTablesSeeder extends Seeder
                 'updated_by' => 1,
                 'thread_category_id' => 3, // Asumsi id untuk kategori Food
                 'status' => 'approved',
-                'user_id' => 1,
+                'user_id' => 3,
                 'forum_type_id' => 2,
             ],
             [
@@ -121,7 +121,7 @@ class ThreadsTablesSeeder extends Seeder
                 'updated_by' => 1,
                 'thread_category_id' => 4, // Asumsi id untuk kategori Programming
                 'status' => 'approved',
-                'user_id' => 1,
+                'user_id' => 2,
                 'forum_type_id' => 2,
             ],
             [
@@ -147,7 +147,7 @@ class ThreadsTablesSeeder extends Seeder
                 'created_by' => 1,
                 'thread_category_id' => 2,
                 'status' => 'approved',
-                'user_id' => 1,
+                'user_id' => 3,
                 'forum_type_id' => 2,
             ],
             // Food
@@ -161,7 +161,7 @@ class ThreadsTablesSeeder extends Seeder
                 'created_by' => 1,
                 'thread_category_id' => 3,
                 'status' => 'approved',
-                'user_id' => 1,
+                'user_id' => 2,
                 'forum_type_id' => 2,
             ],
             [
@@ -188,7 +188,7 @@ class ThreadsTablesSeeder extends Seeder
                 'created_by' => 1,
                 'thread_category_id' => 4,
                 'status' => 'approved',
-                'user_id' => 1,
+                'user_id' => 3,
                 'forum_type_id' => 2,
             ],
             [
@@ -201,7 +201,7 @@ class ThreadsTablesSeeder extends Seeder
                 'created_by' => 1,
                 'thread_category_id' => 4,
                 'status' => 'approved',
-                'user_id' => 1,
+                'user_id' => 2,
                 'forum_type_id' => 2,
             ],
             // Flight Information
@@ -228,7 +228,7 @@ class ThreadsTablesSeeder extends Seeder
                 'created_by' => 1,
                 'thread_category_id' => 5,
                 'status' => 'approved',
-                'user_id' => 1,
+                'user_id' => 3,
                 'forum_type_id' => 2,
             ],
             // Technology
@@ -242,7 +242,7 @@ class ThreadsTablesSeeder extends Seeder
                 'created_by' => 1,
                 'thread_category_id' => 6,
                 'status' => 'approved',
-                'user_id' => 1,
+                'user_id' => 2,
                 'forum_type_id' => 2,
             ],
             [
@@ -269,7 +269,7 @@ class ThreadsTablesSeeder extends Seeder
                 'created_by' => 1,
                 'thread_category_id' => 7,
                 'status' => 'approved',
-                'user_id' => 1,
+                'user_id' => 3,
                 'forum_type_id' => 2,
             ],
             [
@@ -282,7 +282,7 @@ class ThreadsTablesSeeder extends Seeder
                 'created_by' => 1,
                 'thread_category_id' => 7,
                 'status' => 'approved',
-                'user_id' => 1,
+                'user_id' => 2,
                 'forum_type_id' => 2,
             ],
         ]);

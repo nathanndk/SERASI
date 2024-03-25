@@ -140,8 +140,7 @@ class ThreadController extends Controller
         $this->authorize('thread.edit', $thread);
 
         request()->validate([
-            'title' => 'required|min:5|max:30',
-            'content' => 'required|min:5|max:254',
+            'title' => 'required|min:3',
             'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 

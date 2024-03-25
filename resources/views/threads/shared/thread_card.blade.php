@@ -7,7 +7,6 @@
         <div class="flex-shrink-0">
             <img class="w-12 h-12 rounded-full" src="{{ $thread->user->getImageURL() }}" alt="{{ $thread->user->name }}">
         </div>
-
         <div class="flex-1 min-w-0 ml-4">
             <h3 class="text-lg font-semibold mt-0"><a href="{{ route('users.show', $thread->user->id) }}" class="text-gray-600 hover:text-gray-800 text-decoration-none">{{ $thread->user->name }}</a></h3>
             <p class="text-gray-500 text-sm mb-0">{{ $thread->threadCategories->category }}</p>

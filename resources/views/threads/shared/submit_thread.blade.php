@@ -5,10 +5,9 @@
 
 @section('content')
 <div class="container py-4">
-    <h3 class="font-bold text-2xl text-gray-800 mb-4">Share Your Thread</h3>
-    <hr class="mb-4">
-
     <div class="mx-auto max-w-md">
+        <h3 class="font-bold text-2xl text-gray-800 mb-4">Share Your Thread</h3>
+        <hr class="mb-4">
         <form action="{{ route('threads.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">

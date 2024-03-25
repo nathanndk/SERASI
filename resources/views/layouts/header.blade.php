@@ -33,8 +33,8 @@
         data-bs-theme="dark">
         <div class="container">
             <a class="navbar-brand fw-light" href="/">
-                <img src="/sekarpura.png" alt="AP2" class="logo me-1" style="width: 75px; height: auto;">
-                {{ config('app.name') }}
+                <img src="{{asset('images/ap2.png')}}" alt="AP2" class="logo me-1" style="width: 40px; height: 40px;">
+                {{-- {{ config('app.name') }} --}}
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
