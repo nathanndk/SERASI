@@ -7,7 +7,7 @@
 @section('content')
 <div class="container py-4">
     <div class="row">
- @include('layouts.sidebar_approval')
+        @include('layouts.sidebar_approval')
         <div class="col-lg-6">
             @include('shared.success_message')
             {{-- hilangkan tombol submit thread jika role admin --}}
@@ -16,7 +16,7 @@
             @endguest
 
             @forelse ($threads as $thread)
-            <div class="mt-3">
+            <div class="mt-1">
                 @include('admin.shared.approval')
             </div>
             @empty

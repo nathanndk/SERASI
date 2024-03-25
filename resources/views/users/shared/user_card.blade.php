@@ -24,13 +24,13 @@
                 @include('users.shared.user_stats')
             </div>
 
-            @auth
+            {{-- @auth
             @if (Auth::id() !== $user->id)
             <div class="mt-3">
                 <button class="btn btn-primary btn-sm"> Follow </button>
             </div>
             @endif
-            @endauth
+            @endauth --}}
         </div>
     </div>
 </div>

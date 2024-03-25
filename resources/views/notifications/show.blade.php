@@ -10,7 +10,7 @@
         @include('layouts.sidebar')
         <div class="col-6">
             @include('shared.success_message')
-            <div class="mt-3">
+            <div class="mt-1">
                 @include('threads.shared.thread_card')
                 @include('threads.shared.comment_box')
             </div>

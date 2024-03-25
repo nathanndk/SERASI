@@ -1,29 +1,28 @@
-<div class="bg-white px-4 py-6 shadow-2xl border-2 sm:p-6 sm:rounded-lg">
+@if(Route::currentRouteName() != 'threads.show')
+    <article class="bg-white px-4 py-6 shadow-2xl border-2 sm:p-6 sm:rounded-lg cursor-pointer" onclick="window.location='{{ route('threads.show', $thread->id) }}'">
+@else
+    <article class="bg-white px-4 py-6 shadow-2xl border-2 sm:p-6 sm:rounded-lg">
+@endif
     <div class="flex items-center justify-between mb-4">
-        <div class="flex items-center">
-            <div class="flex-shrink-0">
-                <img class="w-12 h-12 rounded-full" src="{{ $thread->user->getImageURL() }}" alt="{{ $thread->user->name }}">
-            </div>
-            <div class="flex-1 min-w-0 ml-4">
-                <h5 class="text-lg font-semibold mt-0"><a href="{{ route('users.show', $thread->user->id) }}" class="text-gray-600 hover:underline text-decoration-none">{{ $thread->user->name }}</a></h5>
-                <p class="text-gray-500 text-sm">
-                    <i class="fas fa-clock me-1"></i>{{  $thread->created_at->diffForHumans() }}
-                </p>
-            </div>
+        <div class="flex-shrink-0">
+            <img class="w-12 h-12 rounded-full" src="{{ $thread->user->getImageURL() }}" alt="{{ $thread->user->name }}">
+        </div>
+
+        <div class="flex-1 min-w-0 ml-4">
+            <h3 class="text-lg font-semibold mt-0"><a href="{{ route('users.show', $thread->user->id) }}" class="text-gray-600 hover:text-gray-800 text-decoration-none">{{ $thread->user->name }}</a></h3>
+            <p class="text-gray-500 text-sm mb-0">{{ $thread->threadCategories->category }}</p>
         </div>
 
         <div class="dropdown">
-            <button type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+            @auth
+            @if(auth()->user()->is($thread->user) || auth()->user()->role == 3)
+            <button type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" onclick="handleDropdownClick(event)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                     <path d="M10 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM10 8.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM11.5 15.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
                 </svg>
             </button>
+
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                @if(Route::currentRouteName() != 'threads.show')
-                    <li><a class="dropdown-item" href="{{ route('threads.show', $thread->id) }}"><i class="fas fa-eye me-2"></i>View</a></li>
-                @endif
-                @auth
-                    @if(auth()->user()->is($thread->user) || auth()->user()->role == 3)
                         <li><a class="dropdown-item" href="{{ route('threads.edit', $thread->id) }}"><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
                         <li>
                             <form method="POST" action="{{ route('threads.destroy', $thread->id) }}">
@@ -44,71 +43,85 @@
         <img src="{{ asset('storage/'.$thread->photo) }}" alt="Thread Image" class="w-full h-96 object-cover rounded-lg mb-4">
     </div>
      @endif
-
     <div>
         @if ($editing ?? false)
-            <form action="{{ route('threads.update', $thread->id) }}" method="post">
-                @csrf
-                @method('put')
-                <div class="mb-6">
-                    <textarea class="form-textarea block w-full px-4 py-3 leading-tight text-gray-700 border border-gray-300 rounded-md resize-none focus:outline-none focus:border-blue-500" id="title" name="title" rows="3">{{ $thread->title }}</textarea>
-                    @error('title')
-                        <span class="text-sm text-red-500 mt-1">{{ $message }}</span>
-                    @enderror
-                    <textarea class="form-textarea mt-4 block w-full px-4 py-3 leading-tight text-gray-700 border border-gray-300 rounded-md resize-none focus:outline-none focus:border-blue-500" id="content" name="content" rows="6">{{ $thread->content }}</textarea>
-                    @error('content')
-                        <span class="text-sm text-red-500 mt-1">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="">
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Update</button>
-                </div>
-            </form>
+        <form action="{{ route('threads.update', $thread->id) }}" method="post" enctype="multipart/form-data">
+            @csrf
+            @method('put')
+
+            <div class="mb-6">
+                <textarea class="form-textarea block w-full px-4 py-3 leading-tight text-gray-700 border border-gray-300 rounded-md resize-none focus:outline-none focus:border-blue-500" id="title" name="title" rows="3">{{ $thread->title }}</textarea>
+                @error('title')
+                    <span class="text-sm text-red-500 mt-1">{{ $message }}</span>
+                @enderror
+
+                <textarea class="form-textarea mt-4 block w-full px-4 py-3 leading-tight text-gray-700 border border-gray-300 rounded-md resize-none focus:outline-none focus:border-blue-500" id="content" name="content" rows="6">{{ $thread->content }}</textarea>
+                @error('content')
+                    <span class="text-sm text-red-500 mt-1">{{ $message }}</span>
+                @enderror
+
+                <input type="file" name="photo" id="photo" class="mt-4 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                @error('photo')
+                    <span class="text-sm text-red-500 mt-1">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Update</button>
+            </div>
+        </form>
+
         @else
-            <h5 class="text-2xl font-semibold mb-3">{{ $thread->title }}</h5>
-            <p class="text-gray-700 leading-relaxed" style="max-height: 200px; overflow-y: auto;">{{ $thread->content }}</p>
+            <h3 class="text-xl font-semibold mb-3">{{ $thread->title }}</h3>
+            <div class="text-gray-700 leading-relaxed overflow-wrap break-word" style="max-height: 200px; overflow-y: auto; column-count: 1;">
+                {!! nl2br(e($thread->content)) !!}
+            </div>
         @endif
     </div>
 
     <hr class="my-4">
 
-    <div class="flex justify-between items-center">
-        <span class="text-sm text-gray-500">
-            <p>{{ $thread->threadCategories->category }}</p>
-        </span>
-
+    <div class="flex justify-between items-center flex-wrap">
+        {{-- @include('threads.shared.like_button') --}}
         @if ($thread->status === 'pending')
-            <div class="flex">
-                <form action="{{ route('threads.approve', $thread->id) }}" method="post" class="me-2">
-                    @csrf
-                    @method('put')
-                    <button type="submit" class="bg-green-500 text-white px-2 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">
-                        <i class="fas fa-check me-1"></i>Approve
-                    </button>
-                </form>
-                <form action="{{ route('threads.reject', $thread->id) }}" method="post">
-                    @csrf
-                    @method('put')
-                    <button type="submit" class="bg-red-500 text-white px-2 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">
-                        <i class="fas fa-times me-1"></i>Reject
-                    </button>
-                </form>
-            </div>
-        @endif
+        <div class="flex">
+            <form action="{{ route('threads.approve', $thread->id) }}" method="post" class="me-2">
+                @csrf
+                @method('put')
+                <button type="submit" class="bg-green-500 text-white px-2 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">
+                    <i class="fas fa-check me-1"></i>Approve
+                </button>
+            </form>
+            <form action="{{ route('threads.reject', $thread->id) }}" method="post">
+                @csrf
+                @method('put')
+                <button type="submit" class="bg-red-500 text-white px-2 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">
+                    <i class="fas fa-times me-1"></i>Reject
+                </button>
+            </form>
+        </div>
+    @endif
+        <span class="text-sm text-gray-500">
+            <i class="fas fa-clock me-1"></i>{{ $thread->created_at->diffForHumans() }}
+        </span>
     </div>
-</div>
-@vite('resources/js/app.js')
-    <script type="module">
-        console.log(Window.Echo);
-        let user_id = {{ Auth::user()->id }};
-        console.log("Mendengarkan pesan baru untuk user:", user_id);
-        Window.Echo.channel(`notification.${user_id}`).listen(
-            ".notification-event",
-            (event) => {
-                console.log("Mendengarkan pesan baru:", event);
-                // Lakukan tindakan yang sesuai dengan pesan yang diterima
-                // reload page
-                location.reload();
-            }
-        );
-    </script>
+@if(Route::currentRouteName() != 'threads.show')
+</article>
+@endif
+
+<script>
+    // Stop event propagation for elements inside the article
+    document.querySelectorAll('article *[onclick], article input, article textarea').forEach(function(element) {
+        element.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+        element.addEventListener('focus', function(event) {
+            event.stopPropagation();
+        });
+    });
+
+    function handleDropdownClick(event) {
+        event.stopPropagation();
+    }
+</script>
+

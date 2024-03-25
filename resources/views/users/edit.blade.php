@@ -10,11 +10,11 @@
         @include('layouts.sidebar')
         <div class="col-lg-6">
             @include('shared.success_message')
-            <div class="mt-3">
+            <div class="mb-3">
                 @include('users.shared.user_edit_card')
             </div>
             @forelse ($threads as $thread)
-            <div class="mt-3">
+            <div class="mt-1">
                 @include('threads.shared.thread_card')
             </div>
             @empty

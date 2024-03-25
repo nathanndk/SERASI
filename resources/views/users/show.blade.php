@@ -11,7 +11,7 @@
                 @include('users.shared.user_card')
             </div>
             @forelse ($threads as $thread)
-            <div class="mt-3">
+            <div class="mt-1">
                 @include('threads.shared.thread_card')
             </div>
             @empty
